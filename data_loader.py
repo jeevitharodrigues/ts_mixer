@@ -97,6 +97,11 @@ class TSFDataLoader:
       data = scaler.transform(df.values)
       return pd.DataFrame(data, index=df.index, columns=df.columns)
 
+    self.train_df_unscaled = train_df
+    self.val_df_unscaled = val_df
+    self.test_df_unscaled = test_df
+    self.df_full_unscaled = df_full
+
     self.train_df = scale_df(train_df, self.scaler)
     self.val_df = scale_df(val_df, self.scaler)
     self.test_df = scale_df(test_df, self.scaler)
@@ -129,13 +134,13 @@ class TSFDataLoader:
     return self.scaler.inverse_transform(data)
 
   def get_train(self, shuffle=True):
-    return self._make_dataset(self.train_df, shuffle=shuffle)
+    return (self._make_dataset(self.train_df, shuffle=shuffle),self.train_df, self.train_df_unscaled)
 
   def get_val(self):
-    return self._make_dataset(self.val_df, shuffle=False)
+    return (self._make_dataset(self.val_df, shuffle=False),self.val_df,self.val_df_unscaled)
 
   def get_test(self):
-    return self._make_dataset(self.test_df, shuffle=False)
+    return (self._make_dataset(self.test_df, shuffle=False),self.test_df,self.test_df_unscaled)
   
   def get_full(self):
-    return self._make_dataset(self.df_full, shuffle=False)
+    return (self._make_dataset(self.df_full, shuffle=False),self.df_full,self.df_full_unscaled)
