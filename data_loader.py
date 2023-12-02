@@ -90,7 +90,7 @@ class TSFDataLoader:
     test_df = df[val_end - self.seq_len : test_end]
 
     # standardize by training set
-    self.scaler = StandardScaler()
+    self.scaler = MinMaxScaler()
     self.scaler.fit(train_df.values)
 
     def scale_df(df, scaler):
