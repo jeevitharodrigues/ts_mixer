@@ -80,7 +80,7 @@ class TSFDataLoader:
       val_end = train_end + 4 * 30 * 24
       test_end = val_end + 4 * 30 * 24
     else:
-      train_end = int(n * 0.8)
+      train_end = int(n * 0.75)
       val_end = n - int(n * 0.15)
       test_end = n
 
